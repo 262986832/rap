@@ -1,0 +1,22 @@
+rap-web:
+  container_name: rap-web
+  image: srzyhead/rap-web
+  ports:
+    - 8080:8080
+  volumes:
+    - ./tomcat_log:/opt/tomcat/logs
+  links:
+    - rap-redis
+    - rap-mysql
+rap-redis:
+  container_name: rap-redis
+  image: redis
+rap-mysql:
+  container_name: rap-mysql
+  image: mysql
+  environment:
+    - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    - MYSQL_DATABASE=rap_db
+  volumes:
+    - ./initialize.sql:/docker-entrypoint-initdb.d/initialize.sql
+    - ./custom.cnf:/etc/mysql/conf.d/custom.cnf
