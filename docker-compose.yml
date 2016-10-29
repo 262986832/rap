@@ -11,6 +11,8 @@ rap-web:
 rap-redis:
   container_name: rap-redis
   image: redis
+  volumes:
+    - ./redis_data:/data
 rap-mysql:
   container_name: rap-mysql
   image: mysql
@@ -20,3 +22,4 @@ rap-mysql:
   volumes:
     - ./initialize.sql:/docker-entrypoint-initdb.d/initialize.sql
     - ./custom.cnf:/etc/mysql/conf.d/custom.cnf
+    - ./mysql_data:/var/lib/mysql
